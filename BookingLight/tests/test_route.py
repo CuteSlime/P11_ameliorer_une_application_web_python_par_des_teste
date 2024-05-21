@@ -18,7 +18,7 @@ def test_purchasePlaces(mock_loadClubs, mock_loadCompetitions, mock_writeClubs, 
     }, follow_redirects=True)
 
     assert response.status_code == 200
-
+    assert b'<title>Summary | GUDLFT Registration</title>' in response.data
     updated_club = mock_clubs[0]
     updated_competition = mock_competitions[0]
     assert updated_club['points'] == '10'
