@@ -27,7 +27,7 @@ def app_with_db(flask_app):
     }
     competition = {
         'name': 'Test Competition',
-        'date': '2024-06-15',
+        'date': '2024-06-15 13:30:00',
         'numberOfPlaces': '10'
     }
 
