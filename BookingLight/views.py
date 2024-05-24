@@ -17,20 +17,25 @@ def index():
 def showSummary():
     competitions = loadCompetitions()
     clubs = loadClubs()
-    club = [club for club in clubs if club['email']
-            == request.form['email']][0]
-    return render_template('welcome.html', club=club, competitions=competitions)
+    for club in clubs:
+        if request.form['email'] == club['email']:
+            return render_template('welcome.html', club=club, competitions=competitions)
+    flash("Sorry, that email wasn't found.")
+    return render_template('index.html')
 
 
 @app.route('/book/<competition>/<club>')
 def book(competition, club):
     competitions = loadCompetitions()
     clubs = loadClubs()
+
     foundClub = [c for c in clubs if c['name'] == club][0]
     foundCompetition = [c for c in competitions if c['name'] == competition][0]
+
+    today_date = datetime.timestamp(datetime.now())
     competition_date = datetime.timestamp(datetime.strptime(
         foundCompetition['date'], '%Y-%m-%d %H:%M:%S'))
-    today_date = datetime.timestamp(datetime.now())
+
     if foundClub and foundCompetition:
         if competition_date < today_date:
             flash("Error, this competitions has already ended.")
