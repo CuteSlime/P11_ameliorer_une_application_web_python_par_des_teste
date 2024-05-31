@@ -52,29 +52,46 @@ def book(competition, club):
 def purchasePlaces():
     competitions = loadCompetitions()
     clubs = loadClubs()
-    competition = [c for c in competitions if c['name']
-                   == request.form['competition']][0]
-    club = [c for c in clubs if c['name'] == request.form['club']][0]
+    this_competition = {}
+    this_club = {}
+
+    for competition in competitions:
+        if competition['name'] == request.form['competition']:
+            this_competition = competition
+            break
+    else:
+        flash("Something went wrong")
+        return render_template('index.html')
+
+    for club in clubs:
+        if club['name'] == request.form['club']:
+            this_club = club
+            break
+
+    else:
+        flash("Something went wrong")
+        return render_template('index.html')
+
     placesRequired = int(request.form['places'])
     if placesRequired > 12:
         flash('You can\'t book more than 12 places')
 
-        return render_template('booking.html', club=club, competition=competition)
+        return render_template('booking.html', club=this_club, competition=this_competition)
 
-    elif placesRequired > int(club['points']):
+    elif placesRequired > int(this_club['points']):
         flash(f'You didn\'t have enough points to redeems '
-              f'{placesRequired} places, you only have {int(club['points'])}')
+              f'{placesRequired} places, you only have {int(this_club['points'])}')
 
-        return render_template('booking.html', club=club, competition=competition)
+        return render_template('booking.html', club=this_club, competition=this_competition)
 
     else:
-        competition['numberOfPlaces'] = str(int(
-            competition['numberOfPlaces'])-placesRequired)
-        club['points'] = str(int(club['points'])-placesRequired)
+        this_competition['numberOfPlaces'] = str(int(
+            this_competition['numberOfPlaces'])-placesRequired)
+        this_club['points'] = str(int(this_club['points'])-placesRequired)
         writeCompetitions(competitions)
         writeClubs(clubs)
         flash('Great-booking complete!')
-        return render_template('welcome.html', club=club, competitions=competitions)
+        return render_template('welcome.html', club=this_club, competitions=competitions)
 
 
 @app.route('/showPointBoard')
