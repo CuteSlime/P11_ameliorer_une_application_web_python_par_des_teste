@@ -24,28 +24,39 @@ def showSummary():
     return render_template('index.html')
 
 
-@app.route('/book/<competition>/<club>')
-def book(competition, club):
+@app.route('/book/<competition_name>/<club_name>')
+def book(competition_name, club_name):
     competitions = loadCompetitions()
     clubs = loadClubs()
 
-    foundClub = [c for c in clubs if c['name'] == club][0]
-    foundCompetition = [c for c in competitions if c['name'] == competition][0]
+    foundClub = []
+    foundCompetition = []
+    for competition in competitions:
+        if competition['name'] == competition_name:
+            foundCompetition = competition
+            break
+    else:
+        flash("Something went wrong-please try again")
+        return render_template('welcome.html', club=foundClub, competitions=competitions)
+
+    for club in clubs:
+        if club['name'] == club_name:
+            foundClub = club
+            break
+    else:
+        flash("Something went wrong-please try again")
+        return render_template('welcome.html', club=foundClub, competitions=competitions)
 
     today_date = datetime.timestamp(datetime.now())
     competition_date = datetime.timestamp(datetime.strptime(
         foundCompetition['date'], '%Y-%m-%d %H:%M:%S'))
 
-    if foundClub and foundCompetition:
-        if competition_date < today_date:
-            flash("Error, this competitions has already ended.")
-            return render_template('welcome.html', club=foundClub, competitions=competitions)
-        else:
-            flash("This competitions is still available")
-            return render_template('booking.html', club=foundClub, competition=foundCompetition)
-    else:
-        flash("Something went wrong-please try again")
+    if competition_date < today_date:
+        flash("Error, this competitions has already ended.")
         return render_template('welcome.html', club=foundClub, competitions=competitions)
+    else:
+        flash("This competitions is still available")
+        return render_template('booking.html', club=foundClub, competition=foundCompetition)
 
 
 @app.route('/purchasePlaces', methods=['POST'])
