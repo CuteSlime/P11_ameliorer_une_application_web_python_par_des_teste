@@ -3,6 +3,14 @@ from unittest.mock import patch
 
 @patch('BookingLight.views.loadClubs')
 def test_pointBoard(mock_loadClubs, app_with_db):
+    """test if the pointBoard route redirect to the good page with the good code
+
+    Keyword arguments:
+    mock_loadClubs -- the mock for the loadClubs
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if all assert pass, else it's will return failed
+    """
 
     flask_app, mock_competitions, mock_clubs = app_with_db
 

@@ -10,13 +10,18 @@ app.config.from_object('config')
 
 @app.route('/')
 def index():
+    """home page with the login"""
+
     return render_template('index.html')
 
 
 @app.route('/showSummary', methods=['POST'])
 def showSummary():
+    """take the email to redirect the welcome page with the list of competitions"""
+
     competitions = loadCompetitions()
     clubs = loadClubs()
+
     for club in clubs:
         if request.form['email'] == club['email']:
             return render_template('welcome.html', club=club, competitions=competitions)
@@ -26,6 +31,9 @@ def showSummary():
 
 @app.route('/book/<competition_name>/<club_name>')
 def book(competition_name, club_name):
+    """take the selected competition to redirect to the booking page
+    where whe will give the number of place to reedem"""
+
     competitions = loadCompetitions()
     clubs = loadClubs()
 
@@ -61,6 +69,8 @@ def book(competition_name, club_name):
 
 @app.route('/purchasePlaces', methods=['POST'])
 def purchasePlaces():
+    """take the number of place to redeem to check if valide and redirect to the welcome page if all good"""
+
     competitions = loadCompetitions()
     clubs = loadClubs()
     this_competition = {}
@@ -107,7 +117,10 @@ def purchasePlaces():
 
 @app.route('/showPointBoard')
 def pointBoard():
+    """redirect to the pointboard to see the point of each club"""
+
     clubs = loadClubs()
+
     pointboard = []
     for club in clubs:
         pointboard.append({"name": club["name"], "points": club["points"]})
@@ -116,4 +129,6 @@ def pointBoard():
 
 @app.route('/logout')
 def logout():
+    """redirect to the home page"""
+
     return redirect(url_for('index'))
