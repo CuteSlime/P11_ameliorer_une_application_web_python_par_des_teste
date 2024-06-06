@@ -5,6 +5,7 @@ from BookingLight import app
 
 @pytest.fixture(scope="session")
 def flask_app():
+    """create testing flask app with context"""
     app
 
     client = app.test_client()
@@ -19,6 +20,7 @@ def flask_app():
 
 @pytest.fixture(scope="session")
 def app_with_db(flask_app):
+    "add a testing DB to the testing app"
 
     club = {
         'name': 'Test Club',

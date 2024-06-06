@@ -6,6 +6,17 @@ from unittest.mock import patch
 @patch('BookingLight.views.loadCompetitions')
 @patch('BookingLight.views.loadClubs')
 def test_purchasePlaces(mock_loadClubs, mock_loadCompetitions, mock_writeClubs, mock_writeCompetitions, app_with_db):
+    """test if the purchasePlaces route redirect to the good page with the good code in multiple condition
+
+    Keyword arguments:
+    mock_loadClubs -- the mock for the loadClubs
+    mock_loadCompetitions -- the mock for the loadCompetitions
+    mock_writeClubs -- the mock for the writeClubs
+    mock_writeCompetitions -- the mock for the writeCompetitions
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if all assert pass, else it's will return failed
+    """
     flask_app, mock_competitions, mock_clubs = app_with_db
 
     mock_competitions[0]['numberOfPlaces'] = '10'
@@ -40,6 +51,17 @@ def test_purchasePlaces_not_enough_point(mock_loadClubs,
                                          mock_writeCompetitions,
                                          app_with_db
                                          ):
+    """test if the purchasePlaces route redirect to the good page with the good code if not enough point
+
+    Keyword arguments:
+    mock_loadClubs -- the mock for the loadClubs
+    mock_loadCompetitions -- the mock for the loadCompetitions
+    mock_writeClubs -- the mock for the writeClubs
+    mock_writeCompetitions -- the mock for the writeCompetitions
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if all assert pass, else it's will return failed
+    """
 
     flask_app, mock_competitions, mock_clubs = app_with_db
 
@@ -75,6 +97,18 @@ def test_purchasePlaces_more_than_12(mock_loadClubs,
                                      mock_writeCompetitions,
                                      app_with_db
                                      ):
+    """test if the purchasePlaces route redirect to the good page
+    with the good code if try to purchase more than 12 points
+
+    Keyword arguments:
+    mock_loadClubs -- the mock for the loadClubs
+    mock_loadCompetitions -- the mock for the loadCompetitions
+    mock_writeClubs -- the mock for the writeClubs
+    mock_writeCompetitions -- the mock for the writeCompetitions
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if all assert pass, else it's will return failed
+    """
 
     flask_app, mock_competitions, mock_clubs = app_with_db
 
@@ -110,6 +144,18 @@ def test_purchasePlaces_wrong_club(mock_loadClubs,
                                    mock_writeCompetitions,
                                    app_with_db
                                    ):
+    """test if the purchasePlaces route redirect to the good page
+    with the good code if not the right club
+
+    Keyword arguments:
+    mock_loadClubs -- the mock for the loadClubs
+    mock_loadCompetitions -- the mock for the loadCompetitions
+    mock_writeClubs -- the mock for the writeClubs
+    mock_writeCompetitions -- the mock for the writeCompetitions
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if all assert pass, else it's will return failed
+    """
 
     flask_app, mock_competitions, mock_clubs = app_with_db
 
@@ -145,6 +191,18 @@ def test_purchasePlaces_wrong_competition(mock_loadClubs,
                                           mock_writeCompetitions,
                                           app_with_db
                                           ):
+    """test if the purchasePlaces route redirect to the good page
+    with the good code if wrong competition
+
+    Keyword arguments:
+    mock_loadClubs -- the mock for the loadClubs
+    mock_loadCompetitions -- the mock for the loadCompetitions
+    mock_writeClubs -- the mock for the writeClubs
+    mock_writeCompetitions -- the mock for the writeCompetitions
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if all assert pass, else it's will return failed
+    """
 
     flask_app, mock_competitions, mock_clubs = app_with_db
 

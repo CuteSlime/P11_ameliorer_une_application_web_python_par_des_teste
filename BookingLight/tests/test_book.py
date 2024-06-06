@@ -4,6 +4,15 @@ from unittest.mock import patch
 @patch('BookingLight.views.loadCompetitions')
 @patch('BookingLight.views.loadClubs')
 def test_book(mock_loadClubs, mock_loadCompetitions, app_with_db):
+    """test if the book route redirect to the good page with the good code in multiple condition
+
+    Keyword arguments:
+    mock_loadClubs -- the mock for the loadClubs
+    mock_loadCompetitions -- the mock for the loadCompetitions
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if all assert pass, else it's will return failed
+    """
 
     flask_app, mock_competitions, mock_clubs = app_with_db
 

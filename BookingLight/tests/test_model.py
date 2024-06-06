@@ -4,6 +4,14 @@ from BookingLight.models import loadClubs, loadCompetitions, writeClubs, writeCo
 
 
 def test_loadClubs(app_with_db):
+    """test if the json load for clubs work
+
+    Keyword arguments:
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if the assert pass, else it's will return failed
+    """
+
     _, _, mock_clubs = app_with_db
     with patch('BookingLight.models.open',
                mock_open(read_data=json.dumps({'clubs': mock_clubs})),
@@ -14,6 +22,14 @@ def test_loadClubs(app_with_db):
 
 
 def test_loadCompetitions(app_with_db):
+    """test if the json load for competitions work
+
+    Keyword arguments:
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if the assert pass, else it's will return failed
+    """
+
     _, mock_competitions, _ = app_with_db
     with patch('BookingLight.models.open',
                mock_open(read_data=json.dumps(
@@ -25,6 +41,14 @@ def test_loadCompetitions(app_with_db):
 
 
 def test_writeClubs(app_with_db):
+    """test if the json writing for clubs work
+
+    Keyword arguments:
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if the assert pass, else it's will return failed
+    """
+
     _, _, mock_clubs = app_with_db
     expected_json_dump = json.dumps(
         {'clubs': mock_clubs}, indent=4)
@@ -38,6 +62,14 @@ def test_writeClubs(app_with_db):
 
 
 def test_writeCompetitions(app_with_db):
+    """test if the json writing for competitions work
+
+    Keyword arguments:
+    app_with_db -- the testDB containing the test app and our false data
+
+    Return: passed if the assert pass, else it's will return failed
+    """
+
     _, mock_competitions, _ = app_with_db
     expected_json_dump = json.dumps(
         {'competitions': mock_competitions}, indent=4)
