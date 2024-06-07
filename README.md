@@ -1,3 +1,62 @@
+# P11_ameliorer_une_application_web_python_par_des_teste
+
+Projet numéro 11 du parcour OpenClassrooms "développeur d'application python"
+
+les commandes fournis sont celle utilisé pour windows, celle ci peuvent varier (notament l'utilisation de python) sur d'autre systeme.
+
+## dépendance 
+
+fonctionnel :
+- Python 3.12
+- Flask
+
+testing :
+- pytest
+- coverage
+- locust
+
+
+## installation
+
+Après avoir cloner le projet, créer votre environement virtuel et activer le, installer les dépendance avec :
+```
+pip install -r requirements.txt
+```
+
+Lancer l'application avec :
+```
+flask --app server run
+```
+Il vous suffit d'ouvrir dans le navigateur l'adresse fournis pour ouvrir l'application.
+
+
+## test
+
+Pour les tests, ceux ci peuvent être exécuter en utilisant :
+```
+py -m pytest
+``` 
+
+Le coverage peut être fait en utilisant :
+```
+coverage run -m pytest
+```
+Et récupérer en HTML avec :
+```
+coverage html
+```
+
+Enfin les test de performance peuvent être fait avec :
+```
+locust -f BookingLight/tests/test_performance/locustfile.py
+```
+Ce dernier doit être lancer après l'application et il est possible d'accéder à une interface web avec le lien fournis pour executer les tests.
+
+
+### Ci-dessous le readme du projet original :
+
+___
+
 # gudlift-registration
 
 1. Why
